@@ -1,14 +1,16 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.tal.myapplication.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.IOException;
+
+import tk.talcharnes.joketivity.Joketivity;
 
 /**
  * Created by Tal on 9/26/2016.
@@ -40,6 +42,9 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        Intent jokeIntent = new Intent(context, Joketivity.class);
+        String joke = result;
+        jokeIntent.putExtra(Joketivity.INTENT_JOKE_TAG, joke);
+        context.startActivity(jokeIntent);
     }
 }
