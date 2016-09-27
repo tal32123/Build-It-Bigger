@@ -3,7 +3,7 @@ package com.example;
 public class JokeifyMe {
     int jokeArrayCount = 0;
 
-    final String[] OTHER_JOKE_ARRAY = new String[]{
+    final static String[] OTHER_JOKE_ARRAY = new String[]{
             "Q.Whats the difference between a tractor and a giraffe? A.One has hydraulics the other has highbollocks.",
             "Q. What kind of band doesn't play music? A. A highbred.",
             "Q. If one is single and two is a couple and three is a crowd, what is four and five? A. 9 (5+4)",
@@ -68,7 +68,7 @@ public class JokeifyMe {
 
         return joke;
     }
-    public String[] getOTHER_JOKE_ARRAY(){
+    public static String[] getOTHER_JOKE_ARRAY(){
         return OTHER_JOKE_ARRAY;
     }
 }
