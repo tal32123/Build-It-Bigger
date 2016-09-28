@@ -23,8 +23,16 @@ private CountDownLatch latch;
     @Before
     public void setUpTest(){
         latch = new CountDownLatch(1);
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
-        endpointsAsyncTask.execute(latch);
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(){
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                latch.countDown();
+            }
+        };
+
+        endpointsAsyncTask.execute();
         try {
             latch.await();
         } catch (InterruptedException e) {
@@ -45,13 +53,13 @@ private CountDownLatch latch;
 
 /*
     Uncomment the following code in order to purposely fail the tests to ensure that code is working
- */
+// */
 //    @Test
 //    public void testShouldFailTheseAsserts(){
 //        setUpTest();
 //        assert(joke == null);
 //
-//        assertEquals(joke, "This is not funny!");
+//        assertEquals(joke, "This test failing is not funny!");
 //    }
 
 
