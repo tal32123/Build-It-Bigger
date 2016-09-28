@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(AndroidJUnit4.class)
 public class EndpointsAsyncTaskTest {
+    private final String LOG_TAG = EndpointsAsyncTaskTest.class.getSimpleName();
  String joke;
 private CountDownLatch latch;
     @Before
@@ -29,6 +31,7 @@ private CountDownLatch latch;
             e.printStackTrace();
         }
         joke = endpointsAsyncTask.getJoke();
+        Log.d(LOG_TAG, joke);
     }
 
 
@@ -39,6 +42,17 @@ private CountDownLatch latch;
 
         assertNotNull(joke);
     }
+
+/*
+    Uncomment the following code in order to purposely fail the tests to ensure that code is working
+ */
+//    @Test
+//    public void testShouldFailTheseAsserts(){
+//        setUpTest();
+//        assert(joke == null);
+//
+//        assertEquals(joke, "This is not funny!");
+//    }
 
 
     @Test

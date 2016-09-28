@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.JokeifyMe;
 
@@ -35,13 +36,15 @@ public class MainActivity extends ActionBarActivity {
     JokeifyMe jokeifyMe = new JokeifyMe();
 
     public void tellJoke(View view) {
+        Toast.makeText(this, R.string.fetching_joke, Toast.LENGTH_SHORT);
         CountDownLatch latch = new CountDownLatch(1);
 
-        EndpointsAsyncTask endpointsAsyncTask = new  EndpointsAsyncTask();
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
         endpointsAsyncTask.execute(latch);
         try {
             Log.i(LOG_TAG, "latch awaiting");
             latch.await();
+            Log.i(LOG_TAG, "await called");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -49,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         Log.i(LOG_TAG, joke);
         Intent jokeIntent = new Intent(getApplicationContext(), Joketivity.class);
         jokeIntent.putExtra(Joketivity.INTENT_JOKE_TAG, joke);
-        getApplicationContext().startActivity(jokeIntent);
+        startActivity(jokeIntent);
     }
 
 

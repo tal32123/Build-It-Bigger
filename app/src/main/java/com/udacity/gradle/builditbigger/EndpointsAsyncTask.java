@@ -23,6 +23,7 @@ class EndpointsAsyncTask extends AsyncTask<CountDownLatch, Void, String> {
 
     @Override
     protected String doInBackground(CountDownLatch... params) {
+        Log.i(LOG_TAG, "Asynctask called");
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://build-it-bigger-144704.appspot.com/_ah/api/");
@@ -32,9 +33,12 @@ class EndpointsAsyncTask extends AsyncTask<CountDownLatch, Void, String> {
         }
 
         latch = params[0];
+        Log.i(LOG_TAG, latch.toString());
 
         try {
-            return myApiService.getJoke().execute().getData();
+            joke = myApiService.getJoke().execute().getData();
+            Log.i(LOG_TAG, joke);
+            return joke;
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -43,8 +47,11 @@ class EndpointsAsyncTask extends AsyncTask<CountDownLatch, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         joke = result;
+
+        Log.i(LOG_TAG, joke);
         latch.countDown();
         Log.i(LOG_TAG, "onPostExecute complete");
+        Log.i(LOG_TAG, latch.toString());
 
     }
 
