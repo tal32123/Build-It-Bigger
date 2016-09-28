@@ -1,28 +1,28 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.tal.myapplication.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.IOException;
-
-import tk.talcharnes.joketivity.Joketivity;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Tal on 9/26/2016.
  */
 
-class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<CountDownLatch, Void, String> {
+    private final String LOG_TAG = EndpointsAsyncTask.class.getSimpleName();
     private static MyApi myApiService = null;
-    private Context context;
+    CountDownLatch latch;
+    private String joke;
 
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(CountDownLatch... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://build-it-bigger-144704.appspot.com/_ah/api/");
@@ -31,7 +31,7 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApiService = builder.build();
         }
 
-        context = params[0];
+        latch = params[0];
 
         try {
             return myApiService.getJoke().execute().getData();
@@ -42,9 +42,13 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Intent jokeIntent = new Intent(context, Joketivity.class);
-        String joke = result;
-        jokeIntent.putExtra(Joketivity.INTENT_JOKE_TAG, joke);
-        context.startActivity(jokeIntent);
+        joke = result;
+        latch.countDown();
+        Log.i(LOG_TAG, "onPostExecute complete");
+
+    }
+
+    public String getJoke(){
+        return joke;
     }
 }
