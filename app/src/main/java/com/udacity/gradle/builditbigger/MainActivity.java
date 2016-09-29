@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-import com.example.JokeifyMe;
-
 import tk.talcharnes.joketivity.Joketivity;
 
 
@@ -31,7 +29,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    JokeifyMe jokeifyMe = new JokeifyMe();
 
     public void tellJoke(View view) {
 
@@ -40,7 +37,6 @@ public class MainActivity extends ActionBarActivity {
             protected Void doInBackground(Object... params) {
                 super.doInBackground(params);
                 String joke = endpointsAsyncTask.getJoke();
-                Log.i(LOG_TAG, joke);
                 Intent jokeIntent = new Intent(getApplicationContext(), Joketivity.class);
                 jokeIntent.putExtra(Joketivity.INTENT_JOKE_TAG, joke);
                 startActivity(jokeIntent);

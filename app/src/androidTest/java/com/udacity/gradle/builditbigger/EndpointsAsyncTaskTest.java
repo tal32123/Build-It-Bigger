@@ -1,7 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,6 @@ private CountDownLatch latch;
             e.printStackTrace();
         }
         joke = endpointsAsyncTask.getJoke();
-        Log.d(LOG_TAG, joke);
     }
 
 

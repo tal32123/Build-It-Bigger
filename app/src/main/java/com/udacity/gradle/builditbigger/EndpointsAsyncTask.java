@@ -21,7 +21,6 @@ class EndpointsAsyncTask extends AsyncTask<Object, Object, Void> {
 
     @Override
     protected Void doInBackground(Object... params) {
-        Log.i(LOG_TAG, "Asynctask called");
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://build-it-bigger-144704.appspot.com/_ah/api/");
@@ -37,14 +36,12 @@ class EndpointsAsyncTask extends AsyncTask<Object, Object, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.i(LOG_TAG, joke);
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.i(LOG_TAG, joke);
-        Log.i(LOG_TAG, "onPostExecute complete");
+
         return;
     }
 

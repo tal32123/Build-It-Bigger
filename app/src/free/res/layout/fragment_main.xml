@@ -13,7 +13,10 @@
         android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instructions" />
+        android:text="@string/instructions"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -30,9 +33,7 @@
         android:onClick="tellJoke"
         android:text="@string/button_text"
 
-        android:layout_below="@+id/instructions_text_view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
         android:id="@+id/button2" />
 
 </RelativeLayout>
